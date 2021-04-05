@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Help {
 
     /**
@@ -18,6 +20,15 @@ public class Help {
      */
     public static String getBinaryFromHex(String stringHex){
         return Long.toBinaryString(Long.parseLong(stringHex, 16));
+    }
+
+    /**
+     * Converte um valor decimal em binário
+     * @param stringHex valor hexadecimal
+     * @return valor em binário
+     */
+    public static String getBinaryFromDec(String stringHex){
+        return Long.toBinaryString((Long.parseLong(stringHex, 10)));
     }
 
     /**
@@ -56,8 +67,90 @@ public class Help {
         if(instructionBinary.length() < 32){
             throw new Exception("Instução hexa menor do que 32 caracteres");
         }
-        String teste = "abcdefghijklmnopqrstuvxwyz123456";
 
         return instructionBinary.substring(begin, end+1);
     }
+
+    /**
+     * Retorna o valor hexadecimal do funct pelo nome da instrução
+     * @return valor hexadecimal do funct pelo nome da instrução
+     */
+    public static String getFunctHexFromMnemonic(String mnemonic) throws Exception {
+
+        return switch (mnemonic) {
+            case "add" -> "20";
+            case "sub" -> "22";
+            case "and" -> "24";
+            case "or" -> "25";
+            case "slt" -> "2a";
+            default -> throw new Exception("Mnemonic não encontrado: "+mnemonic);
+        };
+
+    }
+
+    /**
+     * Retorna o valor hexadecimal do opcode pelo nome da instrução
+     * @return valor hexadecimal do opcode pelo nome da instrução
+     */
+    public static String getOpcodeHexFromMnemonic(String mnemonic) throws Exception {
+
+        return switch (mnemonic) {
+            case "lw" -> "23";
+            case "sw" -> "2b";
+            case "beq" -> "4";
+            default -> throw new Exception("Mnemonic não encontrado: "+mnemonic);
+        };
+
+    }
+
+    public static boolean isInstructionRByMnemonic(String mnemonic){
+        return List.of("add", "sub", "and", "or", "slt").contains(mnemonic);
+    }
+
+    public static boolean isInstructionIByMnemonic(String mnemonic){
+        return List.of("lw", "sw", "beq").contains(mnemonic);
+    }
+
+    public static void printData(){
+        System.out.println("PC: "+PC.getValue()+"\t\t\t\tALU_A: "+Alu.getA()+"\t\t\t\tALU_B: "+Alu.getB()+"\t\t\t\tALU_OUT: "+Alu.getAluResult());
+
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+        System.out.println("Banco de registradores");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        int count=0;
+        for(Register register:Registers.getRegisters()){
+            count++;
+            System.out.printf("%-20s%s", "Registrador: "+register.getName(), "Valor: "+register.getValue());
+
+            if(count%2==0){
+                System.out.print("\n");
+            }else{
+                System.out.printf("%-20s","");
+            }
+        }
+        System.out.print("\n");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+        System.out.println("Memória de Instrução");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        count=0;
+        for(String s: InstructionMemory.getInstructions().keySet()){
+            System.out.println("Endereço:"+s+" Valor: "+InstructionMemory.getInstructions().get(s));
+        }
+        System.out.print("\n");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+
+        System.out.println("Memória de Dados");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        count=0;
+        for(String s: DataMemory.getDataMemory().keySet()){
+            System.out.println("Endereço:"+s+" Valor: "+DataMemory.getDataMemory().get(s));
+        }
+        System.out.print("\n");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+    }
+
 }

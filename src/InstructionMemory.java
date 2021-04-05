@@ -39,4 +39,7 @@ public class InstructionMemory {
         return InstructionMemory.instructions.get(PC.getPreviousAddress());
     }
 
+    public static Map<String, String> getInstructions() {
+        return InstructionMemory.instructions;
+    }
 }

@@ -27,9 +27,23 @@ public class Main {
         //Cria as posições de memória de dados
         DataMemory.setupDataMemory();
 
+        //Ler arquivo
+        Arquivo arquivo = new Arquivo();
+        ArrayList<String> arquivoLido = arquivo.lerArquivo("files/instructions-R.asm");
+        ArrayList<String> instructionsHex = null;
+        if (arquivoLido != null) {
+            try {
+                instructionsHex  = arquivo.getInstructionsHex(arquivoLido);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // buscar array list de instruções em hexadecimal
+
         //instruções para teste
-        ArrayList<String> testeInstrucoes = new ArrayList<>();
-        testeInstrucoes.add("0232b820");//add $s7, $s1, $s2
+        ArrayList<String> testeInstrucoes = instructionsHex;
+        /*testeInstrucoes.add("0232b820");//add $s7, $s1, $s2
         testeInstrucoes.add("0232b022");//sub $s6, $s1,$s2
         testeInstrucoes.add("0232a825");//or $s5,$s1, $s2
         testeInstrucoes.add("0232a024");//and $s4, $s1, $s2
@@ -40,18 +54,17 @@ public class Main {
         testeInstrucoes.add("04500004");
         testeInstrucoes.add("06500010");
         testeInstrucoes.add("02500020");
-        testeInstrucoes.add("01800030");
+        testeInstrucoes.add("01800030");*/
 
 
         InstructionMemory.loadInstructionMemory(testeInstrucoes);
 
-        /*for(String s: this.instructionMemory.getInstructions().keySet()){
-            System.out.println("Chave:"+s+" Valor: "+this.instructionMemory.getInstructions().get(s));
-        }*/
     }
 
     public void loop() throws Exception {
+        Help.printData();
         Scanner input = new Scanner(System.in);
+        System.out.println("Digite 1 para realizar o clock: ");
         String valor = input.nextLine();
         boolean clockSubida = false;//false - clock desceu true - clock subiu
         while (!valor.equals("quit")) {
@@ -59,7 +72,7 @@ public class Main {
                 clockSubida = !clockSubida;
                 if (clockSubida) {
 
-                    System.out.println("Subiu: \u2191");
+
 
                     //1 - Pega o endereço da proxima instrução no PC e busca essa instrução através desse endereço na Instruction Memmory
                     PC.increaseAndGetValue();
@@ -95,12 +108,16 @@ public class Main {
                     Registers.writeData();
 
 
-                    System.out.println("Instrução: " + instruction);
+                    Help.printData();
+                    System.out.println("Subiu: \u2191");
                 } else {
+                    Help.printData();
                     System.out.println("Desceu: \u2193");
                 }
             }
 
+
+            System.out.println("Digite 1 para realizar o clock: ");
             valor = input.nextLine();
         }
 

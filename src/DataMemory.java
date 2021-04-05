@@ -68,4 +68,8 @@ public class DataMemory {
         }
         return null;
     }
+
+    public static Map<String, String> getDataMemory() {
+        return dataMemory;
+    }
 }

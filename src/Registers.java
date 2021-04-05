@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Registers {
-    public static ArrayList<Register> registers;
+    private static ArrayList<Register> registers;
     public static String RS;
     public static String RT;
     public static String SHAMT;
@@ -88,8 +88,8 @@ public class Registers {
         Registers.registers.add(new Register("$t7", 15, null));
 
         Registers.registers.add(new Register("$s0", 16, "10010000"));
-        Registers.registers.add(new Register("$s1", 17, "ffffffff"));
-        Registers.registers.add(new Register("$s2", 18, "00000001"));
+        Registers.registers.add(new Register("$s1", 17, "00000006"));
+        Registers.registers.add(new Register("$s2", 18, "00000003"));
         Registers.registers.add(new Register("$s3", 19, "00000300"));
         Registers.registers.add(new Register("$s4", 20, "00000400"));
         Registers.registers.add(new Register("$s5", 21, "00000500"));
@@ -98,6 +98,10 @@ public class Registers {
 
         Registers.registers.add(new Register("$t8", 24, null));
         Registers.registers.add(new Register("$t9", 25, null));
+    }
+
+    public static ArrayList<Register> getRegisters(){
+        return Registers.registers;
     }
 
     public static Register getRegisterByName(String name) throws Exception {
@@ -170,4 +174,27 @@ public class Registers {
     //  0           17      18      16      0       32
     //  OP          RS      RT      RD      SHAMT   FUNCT
     //  0           $s1     $s2     $s0     0       add
+
+
+
+    //Instrução do Tipo I - Formato
+    //beq $s2, $zero, 1001
+    //  1   0    1     2    0   0    0    10
+    //0001 0000 0001 0010 0000 0000 0000 1001
+    //  4      0     18            10
+    //000100 00000 10010 0000000000001001
+    // OP       RS  RT        IMM
+    // 4     $zero  $s2     10
+
+
+    /*
+            lw $s1, 4($s0)
+            8       e       1       1       0       0       0       4
+            1000    1110    0001    0001    0000    0000    0000    0100
+
+            10001110000100010000000000000100
+            10001110000100010000000000000100
+
+
+     */
  }

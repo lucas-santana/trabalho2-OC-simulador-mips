@@ -37,6 +37,7 @@ public class Alu {
             //SUB
             case "6":
                 Alu.aluResult = Long.toHexString(Long.parseLong(Alu.A, 16) - Long.parseLong(Alu.B, 16));
+                Alu.aluResult = Help.padLeft(Alu.aluResult,'0', 8);
                 Alu.aluResult = Alu.aluResult.substring(Alu.aluResult.length() - 8);//ignorar o overflow
                 break;
 
@@ -60,5 +61,14 @@ public class Alu {
 
     public static String getAluResult() {
         return aluResult;
+    }
+
+
+    public static String getA() {
+        return A;
+    }
+
+    public static String getB() {
+        return B;
     }
 }
