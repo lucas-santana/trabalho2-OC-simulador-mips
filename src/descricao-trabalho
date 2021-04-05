@@ -1,0 +1,13 @@
+Trabalho 2
+
+- Desenvolver um simulador para o processador MIPS Single Clock na linguagem de programação que o grupo achar mais conveniente.
+- O simulador deve ser capaz de ler um arquivo em assembly.
+- O programa lido deverá ser carregado na memória de instruções.
+- O simulador deverá exibir na tela o conteúdo do banco de registradores, da memória de instrução (podem ser poucas posições, 64 por exemplo) e da memória de dados (podem ser poucas posições, 64 por exemplo).
+- Na tela, deverão ser exibidos também o valor de PC, de ALU_A, de ALU_B, de ALU_OUT.
+- O simulador deverá executar o programa através de pulsos de clock, que serão informados pelo usuário. Em terminal poderia ser um comando digitado no teclado e em uma janela poderia ser um click de botão por exemplo.
+- O clock deverá ser feito em duas etapas: subida de clock e descida de clock; todas gerenciadas pelo usuário
+- Deve ser possível resetar o processador também.
+- As intruções que o simulador deverá ser capaz de interpretar são: lw, sw, beq, add, sub,and, or, slt, e jump.
+- O simulador deverá possibilitar inicializar os valores do banco de registradores para a execução dos exemplos.
+- Deverá ser criado pelo menos um programa exemplo que utiliza todas as instruções suportadas para verificação do funcionamento do simulador.
