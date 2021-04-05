@@ -76,25 +76,25 @@ public class Registers {
     public static void setupRegisters(){
         Registers.registers = new ArrayList<Register>();
 
-        Registers.registers.add(new Register("$zero", 0, null));
+        Registers.registers.add(new Register("$zero", 0, "00000000"));
 
         Registers.registers.add(new Register("$t0", 8,null));
-        Registers.registers.add(new Register("$t1", 9, null));
-        Registers.registers.add(new Register("$t2", 10, null));
+        Registers.registers.add(new Register("$t1", 9, "10010000"));
+        Registers.registers.add(new Register("$t2", 10, "10010000"));
         Registers.registers.add(new Register("$t3", 11, null));
         Registers.registers.add(new Register("$t4", 12, null));
         Registers.registers.add(new Register("$t5", 13, null));
         Registers.registers.add(new Register("$t6", 14, null));
         Registers.registers.add(new Register("$t7", 15, null));
 
-        Registers.registers.add(new Register("$s0", 16, "10010000"));
-        Registers.registers.add(new Register("$s1", 17, "00000006"));
-        Registers.registers.add(new Register("$s2", 18, "00000003"));
-        Registers.registers.add(new Register("$s3", 19, "00000300"));
-        Registers.registers.add(new Register("$s4", 20, "00000400"));
-        Registers.registers.add(new Register("$s5", 21, "00000500"));
-        Registers.registers.add(new Register("$s6", 22, "00000600"));
-        Registers.registers.add(new Register("$s7", 23, "00000700"));
+        Registers.registers.add(new Register("$s0", 16, "00000000"));
+        Registers.registers.add(new Register("$s1", 17, "00000001"));
+        Registers.registers.add(new Register("$s2", 18, "00000002"));
+        Registers.registers.add(new Register("$s3", 19, "00000003"));
+        Registers.registers.add(new Register("$s4", 20, "00000004"));
+        Registers.registers.add(new Register("$s5", 21, "00000005"));
+        Registers.registers.add(new Register("$s6", 22, "00000006"));
+        Registers.registers.add(new Register("$s7", 23, "00000007"));
 
         Registers.registers.add(new Register("$t8", 24, null));
         Registers.registers.add(new Register("$t9", 25, null));
@@ -195,6 +195,15 @@ public class Registers {
             10001110000100010000000000000100
             10001110000100010000000000000100
 
+
+     */
+
+
+    /*
+            beq $s2, $zero, loop
+            opcode  RS      RT      IMM
+                     18
+           000100   10010   00000   1111111111111101             -->correto
 
      */
  }

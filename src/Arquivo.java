@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Arquivo {
 
+    public static ArrayList<String> arquivoLido;
     public ArrayList<String> lerArquivo(String pathFile) {
         BufferedReader buffRead;
         ArrayList<String> arquivoLido = new ArrayList<String>();
@@ -31,6 +32,7 @@ public class Arquivo {
             }
             buffRead.close();
 
+            Arquivo.arquivoLido = arquivoLido;
             return arquivoLido;
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,10 +49,16 @@ public class Arquivo {
 
         for (String string:arrayListInstructions) {
             //1 - Pegar o mnemonic
+
+            if(string.contains(":")){
+                string = string.substring(string.indexOf(':')+1).trim();
+            }
             indexCharacter = string.indexOf(' ');
             if(indexCharacter == -1){
                 continue;
             }
+
+
 
             String mnemonic = string.substring(0, indexCharacter);
 
@@ -118,25 +126,29 @@ public class Arquivo {
     private String parserInstrucaoTipoI(String mnemonic, String operation) throws Exception {
         int indexCharacter;
         String opcode = Help.padLeft(Help.getBinaryFromHex(Help.getOpcodeHexFromMnemonic(mnemonic)), '0', 6);
-
-        //Pegar o RT
-        indexCharacter = operation.indexOf(',');
-        if(indexCharacter == -1){
-            throw new Exception("Falha ao encontrar vírgula para encontrar o RT...");
-        }
-
-        String stringRt = operation.substring(0, indexCharacter);
-
-        Register registradorRt = Registers.getRegisters().stream().filter(search -> {
-            return stringRt.equals(search.getName());
-        }).findFirst().orElseThrow(()->new Exception("Registrador não encontrado: "+stringRt));
-
-        operation = operation.substring(indexCharacter+1).trim();
-
         Register registradorRs = null;
+        Register registradorRt = null;
         String stringImm = null;
 
+
+
+
+
         if(mnemonic.equals("lw") || mnemonic.equals("sw")){
+            //Pegar o RT
+            indexCharacter = operation.indexOf(',');
+            if(indexCharacter == -1){
+                throw new Exception("Falha ao encontrar vírgula para encontrar o RT...");
+            }
+
+            String stringRt = operation.substring(0, indexCharacter);
+
+            registradorRt = Registers.getRegisters().stream().filter(search -> {
+                return stringRt.equals(search.getName());
+            }).findFirst().orElseThrow(()->new Exception("Registrador não encontrado: "+stringRt));
+
+            operation = operation.substring(indexCharacter+1).trim();
+
             //Pegar o valor do IMM == Offset
             indexCharacter = operation.indexOf('(');
             stringImm = operation.substring(0, indexCharacter).trim();
@@ -151,6 +163,7 @@ public class Arquivo {
             }).findFirst().orElseThrow(()->new Exception("Registrador não encontrado: "+stringRs));
         }
         if(mnemonic.equals("beq") ){
+
             //Pegar o RS
             indexCharacter = operation.indexOf(',');
             if(indexCharacter == -1){
@@ -163,17 +176,39 @@ public class Arquivo {
                 return stringRs.equals(search.getName());
             }).findFirst().orElseThrow(()->new Exception("Registrador não encontrado: "+stringRs));
 
+            operation = operation.substring(indexCharacter+1).trim();
+
+            //Pegar o RT
+            indexCharacter = operation.indexOf(',');
+            if(indexCharacter == -1){
+                throw new Exception("Falha ao encontrar vírgula para encontrar o RS...");
+            }
+
+            String stringRt = operation.substring(0, indexCharacter);
+
+            registradorRt = Registers.getRegisters().stream().filter(search -> {
+                return stringRt.equals(search.getName());
+            }).findFirst().orElseThrow(()->new Exception("Registrador não encontrado: "+stringRt));
+
+
             //Pegar o IMM
-            //TODO: calcular o endereço do label
-            stringImm = operation.substring(indexCharacter + 1).trim();
-            stringImm = stringImm.replace("0x","");
+            //String labelString = operation.substring(indexCharacter + 1).trim();
+            String labelString = Help.getStringLabelFromArquivoLido();
+
+            int lineOfLabel = Help.getIndexLabelFromArquivoLido(labelString);
+            int lineOfBeq = Help.getIndexbeqWithLabelFromArquivoLido(labelString)+1;
+            int numberLines = (lineOfBeq - lineOfLabel)*(-1);
+            stringImm = Integer.toHexString(numberLines);
+            if(numberLines<0){
+                stringImm = stringImm.substring(stringImm.length() - 4);
+            }
+
             stringImm = Help.getBinaryFromHex(stringImm);
         }
 
 
 
         String binario =  opcode + registradorRs.getBinaryFromDecimal() + registradorRt.getBinaryFromDecimal()+Help.padLeft(stringImm, '0',16);
-
         long binarioDecimal = Long.parseLong(binario, 2);
         String decimalHexa = Long.toString(binarioDecimal, 16);
         decimalHexa = Help.padLeft(decimalHexa, '0',8);

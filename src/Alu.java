@@ -3,6 +3,7 @@ public class Alu {
     private static String B;
     private static String aluControlCode;
     private static String aluResult;
+    private static String zero;
 
 
     public static void setInputAlu() throws Exception {
@@ -10,7 +11,7 @@ public class Alu {
         A = Registers.getRegisterByNumber((int)(numDecRegister)).getValue();
 
         if(Registers.ORIG_ALU.equals("0")){
-            numDecRegister = Help.getDecFromBinary(Registers.RT);
+            numDecRegister = Help.getDecFromBinary(Instruction.getRtBinary());
             B = Registers.getRegisterByNumber((int)numDecRegister).getValue();
         }
 
@@ -39,6 +40,11 @@ public class Alu {
                 Alu.aluResult = Long.toHexString(Long.parseLong(Alu.A, 16) - Long.parseLong(Alu.B, 16));
                 Alu.aluResult = Help.padLeft(Alu.aluResult,'0', 8);
                 Alu.aluResult = Alu.aluResult.substring(Alu.aluResult.length() - 8);//ignorar o overflow
+                if(Long.parseLong(Alu.aluResult, 16) == 0){
+                    Alu.zero = "1";
+                } else{
+                    Alu.zero = "0";
+                }
                 break;
 
             //AND

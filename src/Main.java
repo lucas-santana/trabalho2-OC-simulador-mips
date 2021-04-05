@@ -2,11 +2,7 @@ import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class Main {
-
-
-
     public static void main(String[] args) {
         try {
             Main main = new Main();
@@ -28,8 +24,12 @@ public class Main {
         DataMemory.setupDataMemory();
 
         //Ler arquivo
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite o nome do arquivo no diretorio files: ");
+        String caminhoArquivo = scanner.nextLine();
+
         Arquivo arquivo = new Arquivo();
-        ArrayList<String> arquivoLido = arquivo.lerArquivo("files/instructions-R.asm");
+        ArrayList<String> arquivoLido = arquivo.lerArquivo("files/"+caminhoArquivo);
         ArrayList<String> instructionsHex = null;
         if (arquivoLido != null) {
             try {
@@ -48,7 +48,7 @@ public class Main {
         testeInstrucoes.add("0232a825");//or $s5,$s1, $s2
         testeInstrucoes.add("0232a024");//and $s4, $s1, $s2
         testeInstrucoes.add("0232982a");//slt $s3, $s1,$s2 --> s1 < 2 ? s3 = 1: s3 = 0
-        testeInstrucoes.add("8e110000");//lw $s1, 0($s0) carrega do endereço apontado por s0 para s1
+        testeInstrucoes.add("8e110400");//lw $s1, 1024($s0) carrega do endereço apontado por s0 para s1
         testeInstrucoes.add("ae510004");//sw $s1, 0($s2) salva o conteudo de s1 para endereço de memoria apontado por s2
         testeInstrucoes.add("0270902a");
         testeInstrucoes.add("04500004");
@@ -107,6 +107,7 @@ public class Main {
                     //Escreve no registrador de destino de acordo com REG_DST (RT ou RD) o dado de acordo MEM_FOR_REG (alu_result ou red_data)
                     Registers.writeData();
 
+                    PC.setPCFrombeq();
 
                     Help.printData();
                     System.out.println("Subiu: \u2191");

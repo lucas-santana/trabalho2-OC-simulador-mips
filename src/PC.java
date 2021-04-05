@@ -32,4 +32,15 @@ public class PC {
     }
 
 
+    public static void setPCFrombeq() throws Exception {
+        if(Registers.BRANCH.equals("1")){
+            int imm = Integer.valueOf(Instruction.getImmHex(),16).shortValue();
+            Integer result = Integer.parseInt(PC.value, 16) + imm*4;
+            PC.value = Integer.toHexString(result);
+        }
+
+
+    }
+
+
 }

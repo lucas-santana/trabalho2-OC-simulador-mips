@@ -1,0 +1,6 @@
+Os arquivos para teste estão na pasta files
+Ao executar o programa a partir do metodo main da classe Main, o programa ira pedir o nome do arquivo
+Digite o nome conforme está na pasta files, por exemplo "beq.asm"
+Os registradores $t1 e $t2 estão com endereço para acessar o Data memory $t1 = 10010000 e $t2 = 10010000
+Os registradores $s0 a $s7 estão respectivamente com os valores de 0 a 7
+Esses valores podem ser modificados acessando a classe Registers

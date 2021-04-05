@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Help {
@@ -153,4 +154,41 @@ public class Help {
 
     }
 
+    public static String getStringLabelFromArquivoLido() throws Exception {
+        ArrayList<String> arquivoLido = Arquivo.arquivoLido;
+        for (int i = 0; i < arquivoLido.size(); i++) {
+            String linha = arquivoLido.get(i);
+            if (linha.contains(":")) {
+                return linha.substring(0, linha.indexOf(":")+1);
+            }
+        }
+        throw new Exception("label não encontrado parao beq");
+    }
+    public static int getIndexLabelFromArquivoLido( String label) throws Exception {
+        ArrayList<String> arquivoLido = Arquivo.arquivoLido;
+        for (int i = 0; i < arquivoLido.size(); i++) {
+            String linha = arquivoLido.get(i);
+            if (linha.contains(label)) {
+                //return linha.indexOf(label + ":");
+                return i;
+            }
+        }
+        throw new Exception("não encontrado linha com label: "+label);
+    }
+
+    public static int getIndexbeqWithLabelFromArquivoLido(String label) throws Exception {
+        ArrayList<String> arquivoLido = Arquivo.arquivoLido;
+        label = label.replace(":","");
+        for (int i = 0; i < arquivoLido.size(); i++) {
+            String linha = arquivoLido.get(i);
+            if (linha.contains("beq")) {
+                int indexFoundLabel =  linha.indexOf(label);
+                String strinFoundLabel = linha.substring(indexFoundLabel).trim();
+                if(label.equals(strinFoundLabel)){
+                    return i;
+                }
+            }
+        }
+        throw new Exception("não encontrado linha beq para esse label: "+label);
+    }
 }

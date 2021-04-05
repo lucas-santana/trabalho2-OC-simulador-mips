@@ -1,4 +1,3 @@
-
 #verifica se s1 é menor do que s2
 slt $s3, $s1,$s2
 and $s4, $s1, $s2
