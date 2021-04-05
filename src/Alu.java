@@ -31,27 +31,28 @@ public class Alu {
             case "2":
                 String result = Long.toHexString(Long.parseLong(Alu.A, 16) + Long.parseLong(Alu.B, 16));
                 Alu.aluResult = Help.padLeft(result,'0', 8);
-
+                Alu.aluResult = Alu.aluResult.substring(Alu.aluResult.length() - 8);//ignorar o overflow
                 break;
 
             //SUB
             case "6":
                 Alu.aluResult = Long.toHexString(Long.parseLong(Alu.A, 16) - Long.parseLong(Alu.B, 16));
+                Alu.aluResult = Alu.aluResult.substring(Alu.aluResult.length() - 8);//ignorar o overflow
                 break;
 
             //AND
             case "0":
-                //AluCtrl.outAluCtrl = "0";
+                Alu.aluResult = Long.toHexString(Long.parseLong(Alu.A, 16) & Long.parseLong(Alu.B, 16));
                 break;
 
             //OR
             case "1":
-                //AluCtrl.outAluCtrl = "1";
+                Alu.aluResult = Long.toHexString(Long.parseLong(Alu.A, 16) | Long.parseLong(Alu.B, 16));
                 break;
 
             //SLT
             case "7":
-                //AluCtrl.outAluCtrl = "7";
+                Alu.aluResult  = Long.parseLong(Alu.A, 16) < Long.parseLong(Alu.B, 16) ? "1" : "0";
                 break;
         }
     }

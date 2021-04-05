@@ -27,8 +27,13 @@ public class Main {
         //Cria as posições de memória de dados
         DataMemory.setupDataMemory();
 
-        //apenas para teste, depois tem que carregar do arquivo
+        //instruções para teste
         ArrayList<String> testeInstrucoes = new ArrayList<>();
+        testeInstrucoes.add("0232b820");//add $s7, $s1, $s2
+        testeInstrucoes.add("0232b022");//sub $s6, $s1,$s2
+        testeInstrucoes.add("0232a825");//or $s5,$s1, $s2
+        testeInstrucoes.add("0232a024");//and $s4, $s1, $s2
+        testeInstrucoes.add("0232982a");//slt $s3, $s1,$s2 --> s1 < 2 ? s3 = 1: s3 = 0
         testeInstrucoes.add("8e110000");//lw $s1, 0($s0) carrega do endereço apontado por s0 para s1
         testeInstrucoes.add("ae510004");//sw $s1, 0($s2) salva o conteudo de s1 para endereço de memoria apontado por s2
         testeInstrucoes.add("0270902a");

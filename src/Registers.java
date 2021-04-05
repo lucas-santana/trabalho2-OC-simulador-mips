@@ -88,8 +88,8 @@ public class Registers {
         Registers.registers.add(new Register("$t7", 15, null));
 
         Registers.registers.add(new Register("$s0", 16, "10010000"));
-        Registers.registers.add(new Register("$s1", 17, "00000009"));
-        Registers.registers.add(new Register("$s2", 18, "10010004"));
+        Registers.registers.add(new Register("$s1", 17, "ffffffff"));
+        Registers.registers.add(new Register("$s2", 18, "00000001"));
         Registers.registers.add(new Register("$s3", 19, "00000300"));
         Registers.registers.add(new Register("$s4", 20, "00000400"));
         Registers.registers.add(new Register("$s5", 21, "00000500"));
