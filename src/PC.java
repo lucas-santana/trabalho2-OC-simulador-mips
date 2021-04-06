@@ -33,13 +33,11 @@ public class PC {
 
 
     public static void setPCFrombeq() throws Exception {
-        if(Registers.BRANCH.equals("1")){
+        if(Registers.BRANCH.equals("1") && Alu.zero.equals("1")){//ADD essa pequena correção no arquivo enviado, só dar branch se Alu.zero = 1, o que significa que o resultado do SUB deu zero
             int imm = Integer.valueOf(Instruction.getImmHex(),16).shortValue();
             Integer result = Integer.parseInt(PC.value, 16) + imm*4;
             PC.value = Integer.toHexString(result);
         }
-
-
     }
 
 

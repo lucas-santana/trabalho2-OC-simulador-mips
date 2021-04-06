@@ -143,11 +143,12 @@ public class Help {
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
 
-        System.out.println("Memória de Dados");
+        System.out.println("Memória de Dados (Mostra apenas se tiver alguma coisa gravada : length > 0");
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         count=0;
         for(String s: DataMemory.getDataMemory().keySet()){
-            System.out.println("Endereço:"+s+" Valor: "+DataMemory.getDataMemory().get(s));
+            if(DataMemory.getDataMemory().get(s).length()>0)
+                System.out.println("Endereço:"+s+" Valor: "+DataMemory.getDataMemory().get(s));
         }
         System.out.print("\n");
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");

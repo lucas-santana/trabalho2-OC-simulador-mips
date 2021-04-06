@@ -71,9 +71,6 @@ public class Main {
             if (valor.equals("1")) {
                 clockSubida = !clockSubida;
                 if (clockSubida) {
-
-
-
                     //1 - Pega o endereço da proxima instrução no PC e busca essa instrução através desse endereço na Instruction Memmory
                     PC.increaseAndGetValue();
 

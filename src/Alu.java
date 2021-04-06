@@ -3,7 +3,7 @@ public class Alu {
     private static String B;
     private static String aluControlCode;
     private static String aluResult;
-    private static String zero;
+    public static String zero;
 
 
     public static void setInputAlu() throws Exception {
@@ -16,9 +16,6 @@ public class Alu {
         }
 
         if(Registers.ORIG_ALU.equals("1")){
-            //TODO: fazer lógica do signal extend???
-            //Min 22:30 da aula 14
-            //Se o bit MSB do IMM for 0 completa com zero a esquerda, se for 1 completa com
             B = Instruction.sinalExtendImmHex();
         }
 

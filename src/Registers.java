@@ -78,14 +78,14 @@ public class Registers {
 
         Registers.registers.add(new Register("$zero", 0, "00000000"));
 
-        Registers.registers.add(new Register("$t0", 8,null));
+        Registers.registers.add(new Register("$t0", 8,"00000000"));
         Registers.registers.add(new Register("$t1", 9, "10010000"));
         Registers.registers.add(new Register("$t2", 10, "10010000"));
-        Registers.registers.add(new Register("$t3", 11, null));
-        Registers.registers.add(new Register("$t4", 12, null));
-        Registers.registers.add(new Register("$t5", 13, null));
-        Registers.registers.add(new Register("$t6", 14, null));
-        Registers.registers.add(new Register("$t7", 15, null));
+        Registers.registers.add(new Register("$t3", 11, "00000000"));
+        Registers.registers.add(new Register("$t4", 12, "00000000"));
+        Registers.registers.add(new Register("$t5", 13, "00000000"));
+        Registers.registers.add(new Register("$t6", 14, "00000000"));
+        Registers.registers.add(new Register("$t7", 15, "00000000"));
 
         Registers.registers.add(new Register("$s0", 16, "00000000"));
         Registers.registers.add(new Register("$s1", 17, "00000001"));
@@ -96,8 +96,8 @@ public class Registers {
         Registers.registers.add(new Register("$s6", 22, "00000006"));
         Registers.registers.add(new Register("$s7", 23, "00000007"));
 
-        Registers.registers.add(new Register("$t8", 24, null));
-        Registers.registers.add(new Register("$t9", 25, null));
+        Registers.registers.add(new Register("$t8", 24, "00000000"));
+        Registers.registers.add(new Register("$t9", 25, "00000000"));
     }
 
     public static ArrayList<Register> getRegisters(){
